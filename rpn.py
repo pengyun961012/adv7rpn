@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import operator
+import click
+
 
 
 operators = {
@@ -11,8 +13,7 @@ operators = {
     '^': operator.pow,
     '%': operator.mod,
 }
-
-def calculate(myarg):
+def calculate(debug,myarg):
     stack = list()
     for token in myarg.split():
         try:
@@ -24,7 +25,8 @@ def calculate(myarg):
             arg1 = stack.pop()
             result = function(arg1, arg2)
             stack.append(result)
-        print(stack)
+        if debug:
+            print(stack)
     if len(stack) != 1:
         raise TypeError("Too many parameters")
     return stack.pop()
@@ -32,9 +34,11 @@ def calculate(myarg):
 def printer():
     print("This is a calculator!")
 
-def main():
+@click.command()
+@click.option('--debug', '-d', is_flag=True, help='Print internal stack')
+def main(debug):
     while True:
-        result = calculate(input("rpn calc> "))
+        result = calculate(debug,input("rpn calc> "))
         print("Result: ", result)
 
 if __name__ == '__main__':
