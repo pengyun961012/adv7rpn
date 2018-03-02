@@ -28,8 +28,10 @@ def calculate(myarg):
     if len(stack) != 1:
         raise TypeError("Too many parameters")
     return stack.pop()
-def print():
+
+def printer():
     print("This is a calculator!")
+
 def main():
     while True:
         result = calculate(input("rpn calc> "))
