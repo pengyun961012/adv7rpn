@@ -1,6 +1,6 @@
 language: python
 python:
    - "3.5"
-script: py.test --cov=./
+script: py.test
 after_success:
     coveralls
